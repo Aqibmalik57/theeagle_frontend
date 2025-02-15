@@ -34,7 +34,7 @@ const Home = ({ showBar, setShowBar, user }) => {
   const [Profit24, setProfit24] = useState("");
 
   const [showToast, setShowToast] = useState(false);
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState([]);
   const [referralData, setReferralData] = useState(null);
 
   const handleCopy = (textToCopy) => {
@@ -52,8 +52,9 @@ const Home = ({ showBar, setShowBar, user }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const result = await users(address);
+        let result = await users(address);
 
+        result = [0x0000000000000000000000000000000000000000,2n,0,0,0,0]
         const referralId = Number(result[1])
         console.log("Referral ID:", referralId);
         console.log("result:", result);
