@@ -46,6 +46,8 @@ const ScrollToTop = () => {
 function App() {
   const location = useLocation();
   const { address, isConnected } = useAccount();
+  console.log("address", address)
+  console.log("isConnected", isConnected)
   const [user, setUser] = useState(null);
 
   useEffect(() => {
