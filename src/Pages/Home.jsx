@@ -7,7 +7,7 @@ import Members from "../Components/Home/Members";
 import Contract from "../Components/Home/Contract";
 import History from "../Components/Home/History";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { HiMiniXMark } from "react-icons/hi2";
 import { useConnect, useDisconnect, useAccount, useSwitchChain } from "wagmi";
@@ -19,12 +19,15 @@ import {
   users,
 } from "../Config/Contract-Methods";
 import axios from "axios";
+import { IdConext } from "../context/getId";
 const Home = ({ showBar, setShowBar, user }) => {
   const [showDetails, setShowDetails] = useState(true);
   const navigate = useNavigate();
   const { connectors, connect } = useConnect();
   const { isConnected, address, chain } = useAccount();
   const { switchChain } = useSwitchChain();
+  const {detail} = useContext(IdConext)
+  console.log("detail", detail);
   console.log("user", address);
 
   const [Profit, setProfit] = useState("");
@@ -51,7 +54,7 @@ const Home = ({ showBar, setShowBar, user }) => {
       try {
         const result = await users(address);
 
-        const referralId = result[0].toString();
+        const referralId = Number(result[1])
         console.log("Referral ID:", referralId);
         console.log("result:", result);
 
@@ -243,7 +246,7 @@ const Home = ({ showBar, setShowBar, user }) => {
                       {user?.name}
                     </h1>
                     <p className="text-lg text-yellow-300 italic font-medium">
-                      ID {userData?.[1]?.toString() ?? "Loading..."}
+                      ID {Number(userData?.[1]) ?? "Loading..."}
                     </p>
                     <button
                       className="mt-8 text-base flex gap-2 items-center justify-center bg-Background shadow-xl shadow-[#00000079] transition-all ease-in-out text-textColor2 w-44 py-1 rounded-full"
