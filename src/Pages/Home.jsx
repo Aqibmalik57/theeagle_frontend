@@ -54,7 +54,7 @@ const Home = ({ showBar, setShowBar, user }) => {
       try {
         let result = await users(address);
 
-        result = [0x0000000000000000000000000000000000000000,2n,0,0,0,0]
+        // result = [0x0000000000000000000000000000000000000000,2n,0,0,0,0]
         const referralId = Number(result[1])
         console.log("Referral ID:", referralId);
         console.log("result:", result);
